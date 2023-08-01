@@ -13,7 +13,8 @@ export interface UserState {
 }
 
 export interface UserAction {
-  loginUser: (firstname: string, password: string) => void;
+  loginUser: (firstname: string, password: string) => boolean;
+  logoutUser: () => void;
   addUser: (user: UserState) => void;
   updateUser: (user: UserState) => void;
   deletUser: (id: number) => void;

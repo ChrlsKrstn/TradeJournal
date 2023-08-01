@@ -2,6 +2,7 @@ import { FormEvent, ChangeEvent, useState } from "react";
 import FormInput from "../../components/form-input/form-input.component"; 
 import { useUserStore } from "../../store/trade-journal.store";  
 import { useNavigate } from "react-router-dom";
+
 const forms = { 
     username: '',
     password: ''
@@ -21,8 +22,12 @@ const Login = () => {
   
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();    
-      userStore.loginUser(username, password);
-      navigate("/");
+      if (userStore.loginUser(username, password)) {
+        navigate("/");
+      } else {
+        alert("Wrong username or password!");
+        return;
+      } 
   } 
 
   return(
