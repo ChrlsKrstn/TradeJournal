@@ -1,9 +1,15 @@
-import { FC, HTMLAttributes } from "react";
+import { useEffect } from "react";
 import { useUserStore } from "../../store/trade-journal.store";
-
+import { useNavigate } from "react-router-dom";
 const Navigation = () => {
 
+    const navigate = useNavigate();
     const { isLogin, data, logoutUser } = useUserStore(); 
+
+    useEffect(() => {
+        if (!isLogin) 
+            navigate("/login");
+    }, []);
 
     const logout = () => {
         logoutUser();
