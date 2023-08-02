@@ -18,4 +18,4 @@ export interface UserAction {
   addUser: (user: UserState) => void;
   updateUser: (user: UserState) => void;
   deletUser: (id: number) => void;
-}
+} 

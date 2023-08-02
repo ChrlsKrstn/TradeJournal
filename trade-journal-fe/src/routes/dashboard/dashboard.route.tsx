@@ -4,19 +4,18 @@ import { useNavigate } from "react-router-dom";
 import { Fragment, useEffect } from "react";
 
 import Navigation from "../../components/navigation/navigation.component";
-import Menu from "../../components/menu/menu.component";
-import MenuItem from "../../components/menu-item/menu-item.component";
+import Menu from "../../components/menu/menu.component";    
 
 const Dashboard = () => {
     
     const navigate = useNavigate();
-    const { isLogin } = useUserStore(); 
+    const { isLogin } = useUserStore();     
 
     useEffect(() => {
         if (!isLogin) 
             navigate("/login");
-    }, []);
-
+    }, [isLogin]); 
+    
     return (
         <Fragment>
             <div className="flex min-h-screen">

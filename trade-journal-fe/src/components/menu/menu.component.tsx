@@ -8,33 +8,18 @@ const menuItem = [
     },
     {
         id: 2,
-        text: "Leaves",
-        route: "/leaves"
+        text: "Journal",
+        route: "/journal"
     },
     {
         id: 3,
-        text: "Certificate of Attendance",
-        route: "/certificate-of-attendance"
+        text: "Entries",
+        route: "/entries"
     },
     {
         id: 4,
-        text: "Schedule Adjustments",
-        route: "/schedule-adjustments"
-    },
-    {
-        id: 5,
-        text: "Overtimes",
-        route: "/overtimes"
-    },
-    {
-        id: 6,
-        text: "Undertimes",
-        route: "/undertimes"
-    },
-    {
-        id: 7,
-        text: "Official Business",
-        route: "/official-business"
+        text: "Withdrawal / Deposits",
+        route: "/withdrawal-deposits"
     },
 ];
 

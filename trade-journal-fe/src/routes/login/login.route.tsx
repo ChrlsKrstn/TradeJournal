@@ -31,27 +31,32 @@ const Login = () => {
   } 
 
   return(
-      <form onSubmit={handleSubmit}>
-          <FormInput
-              label="Username"
-              type="text"
-              className="block w-full rounded-md"
-              name="username"
-              onChange={handleChange}
-              value={username}
-          />
-          <FormInput
-              label="Password"
-              type="password"
-              className="block w-full rounded-md"
-              name="password"
-              onChange={handleChange}
-              value={password}
-          />
-          <button>
-              Submit Me!
-          </button>    
-      </form>
+    <div className="mx-auto max-w-7xl sm:px-56 sm:py-80 lg:px-96 lg:py-80">
+        <form onSubmit={handleSubmit}>
+            <div className="grid gap-y-5">
+                <FormInput
+                    label="Username"
+                    type="text"
+                    className="block w-full rounded-md"
+                    name="username"
+                    onChange={handleChange}
+                    value={username}
+                />
+                <FormInput
+                    label="Password"
+                    type="password"
+                    className="block w-full rounded-md"
+                    name="password"
+                    onChange={handleChange}
+                    value={password}
+                />
+                <button className="w-full rounded-md py-3 bg-green-600 text-white hover:bg-green-400">
+                    Login
+                </button>
+            </div>
+        </form>
+    </div>
+      
   );
 };
 
