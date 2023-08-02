@@ -34,7 +34,7 @@ export const useUserStore = create<UserState & UserAction>((set, get) => ({
     }))
   },
   addUser: (user: UserState) => {
-    
+     
   },
   updateUser: (user: UserState) => {
 
