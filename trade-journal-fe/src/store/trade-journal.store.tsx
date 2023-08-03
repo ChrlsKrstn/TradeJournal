@@ -9,20 +9,6 @@ export const useUserStore = create<UserState & UserAction>((set, get) => ({
       }));   
   },
   loginUser: (user: UserState) => { 
- 
-    // set(() => ({
-    //   isLogin: true,
-    //   data:[
-    //     {
-    //       id: 0,
-    //       username: user.data,
-    //       password: password,
-    //       firstname: username,
-    //       middlename: "string",
-    //       lastname: "string"
-    //     },
-    //   ]
-    // }));   
 
     return get().isLogin;
   },

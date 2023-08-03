@@ -16,21 +16,20 @@ const Login = () => {
   const { ...userStore } = useUserStore();
   const [formFields, setFormFields] = useState(forms); 
   const {username, password} = formFields; 
-  const navigate = useNavigate();  
+  const navigate = useNavigate();   
+  const { queryKey, queryFn } = LoginQuery();
+  const handleLogin = useQuery({ queryKey, queryFn, enabled :false });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = event.target;
       setFormFields({...formFields, [name]: value }); 
-  }; 
-  
+  };  
+  console.log(handleLogin.isLoading);
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();    
-      userStore.setLogin(username, password); 
-      
-  const { data } = useQuery(LoginQuery);
-      console.log(data);
-      //console.log(LoginRequest);
-      //navigate("/"); 
+      userStore.setLogin(username, password);   
+      handleLogin.refetch();
+      console.log(handleLogin.isLoading);
   } 
 
   return(
