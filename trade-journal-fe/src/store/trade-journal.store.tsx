@@ -1,31 +1,29 @@
-import { create } from "zustand";
-
-import { UserState, UserAction } from "../utils/user/user.state";
-
+import { create } from "zustand"; 
+import { UserState, UserAction, USER_INITIAL_STATE } from "../utils/user/user.state";   
 export const useUserStore = create<UserState & UserAction>((set, get) => ({
-  isLogin: false,
-  data: [], 
-  loginUser: (username: string, password: string) => {
-    if (username == "charles" && password == "charles") {
-      try {
-        set(() => ({
-          isLogin: true,
-          data:[
-            {
-              id: 0,
-              username: username,
-              password: password,
-              firstname: username,
-              middlename: "string",
-              lastname: "string"
-            },
-          ]
-        }));   
-      } catch (error) {
-        return false;
-      }
-      
-    } 
+  ...USER_INITIAL_STATE,
+  setLogin: (username: string, password: string) => {
+    set(() => ({
+        username: username,
+        password: password
+      }));   
+  },
+  loginUser: (user: UserState) => { 
+ 
+    // set(() => ({
+    //   isLogin: true,
+    //   data:[
+    //     {
+    //       id: 0,
+    //       username: user.data,
+    //       password: password,
+    //       firstname: username,
+    //       middlename: "string",
+    //       lastname: "string"
+    //     },
+    //   ]
+    // }));   
+
     return get().isLogin;
   },
   logoutUser: () => {

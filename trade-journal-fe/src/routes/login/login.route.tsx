@@ -1,7 +1,10 @@
 import { FormEvent, ChangeEvent, useState } from "react";
-import FormInput from "../../components/form-input/form-input.component"; 
-import { useUserStore } from "../../store/trade-journal.store";  
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+ 
+import FormInput from "../../components/form-input/form-input.component"; 
+import { useUserStore } from "../../store/trade-journal.store";   
+import { LoginQuery } from "../../store/trade-journal-queries";
 
 const forms = { 
     username: '',
@@ -11,9 +14,9 @@ const forms = {
 const Login = () => {
 
   const { ...userStore } = useUserStore();
-  const [formFields, setFormFields] = useState(forms);
+  const [formFields, setFormFields] = useState(forms); 
   const {username, password} = formFields; 
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = event.target;
@@ -22,12 +25,12 @@ const Login = () => {
   
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();    
-      if (userStore.loginUser(username, password)) {
-        navigate("/");
-      } else {
-        alert("Wrong username or password!");
-        return;
-      } 
+      userStore.setLogin(username, password); 
+      
+  const { data } = useQuery(LoginQuery);
+      console.log(data);
+      //console.log(LoginRequest);
+      //navigate("/"); 
   } 
 
   return(

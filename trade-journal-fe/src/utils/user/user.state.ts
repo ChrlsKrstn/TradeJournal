@@ -8,12 +8,22 @@ interface UserType {
 }
 
 export interface UserState {
-  isLogin: boolean,
+  isLogin: boolean, 
+  username: string,
+  password: string,
   data: UserType[]
-}
+} 
+
+export const USER_INITIAL_STATE = {
+  isLogin: false, 
+  username: "",
+  password: "",
+  data: []
+} 
 
 export interface UserAction {
-  loginUser: (firstname: string, password: string) => boolean;
+  setLogin: (username: string, password: string) => void;
+  loginUser: (user:UserState) => boolean;
   logoutUser: () => void;
   addUser: (user: UserState) => void;
   updateUser: (user: UserState) => void;
