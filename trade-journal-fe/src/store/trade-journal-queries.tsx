@@ -5,8 +5,7 @@ type GET_QUERY = {
   queryFn: () => void
 }
 
-export const LoginQuery = (): GET_QUERY => { 
-  const { username, password } = useUserStore();
+export const LoginQuery = (): GET_QUERY => {  
   return {
     queryKey: ["login"],
     queryFn: async () => {

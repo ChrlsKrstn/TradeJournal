@@ -1,31 +1,24 @@
-interface UserType {
+export interface UserState {
+  isLogin: boolean, 
   id: number,
   username: string,
   password: string,
   firstname: string,
   middlename: string,
   lastname: string
-}
-
-export interface UserState {
-  isLogin: boolean, 
-  username: string,
-  password: string,
-  data: UserType[]
-} 
+}  
 
 export const USER_INITIAL_STATE = {
-  isLogin: false, 
+  isLogin: false,
+  id: 0,
   username: "",
   password: "",
-  data: []
+  firstname: "",
+  middlename: "",
+  lastname: ""
 } 
 
 export interface UserAction {
-  setLogin: (username: string, password: string) => void;
-  loginUser: (user:UserState) => boolean;
+  setUser: (user:UserState) => void;
   logoutUser: () => void;
-  addUser: (user: UserState) => void;
-  updateUser: (user: UserState) => void;
-  deletUser: (id: number) => void;
 } 

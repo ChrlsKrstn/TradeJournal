@@ -1,11 +1,11 @@
 import { FormEvent, ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
  
 import FormInput from "../../components/form-input/form-input.component"; 
 import { useUserStore } from "../../store/trade-journal.store";   
-import { LoginQuery } from "../../store/trade-journal-queries";
-
+//import { LoginQuery } from "../../store/trade-journal-queries"; FOR GETTING VALUES TO BE USED LATER
+import { loginMutation } from "../../store/trade-journal-mutation";
 const forms = { 
     username: '',
     password: ''
@@ -16,20 +16,31 @@ const Login = () => {
   const { ...userStore } = useUserStore();
   const [formFields, setFormFields] = useState(forms); 
   const {username, password} = formFields; 
-  const navigate = useNavigate();   
-  const { queryKey, queryFn } = LoginQuery();
-  const handleLogin = useQuery({ queryKey, queryFn, enabled :false });
+  const navigate = useNavigate();    
+  const login = useMutation({
+    mutationFn: loginMutation,
+    onSuccess: data => {
+        if(data.status == 401) { 
+            alert("Wrong username or password!");
+        }
+        else { 
+            userStore.setUser(data);
+            navigate("/");
+        }
+    }, 
+  });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = event.target;
       setFormFields({...formFields, [name]: value }); 
-  };  
-  console.log(handleLogin.isLoading);
+  };   
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault();    
-      userStore.setLogin(username, password);   
-      handleLogin.refetch();
-      console.log(handleLogin.isLoading);
+      event.preventDefault();     
+      login.mutate(JSON.stringify({
+        username: username, 
+        password: password
+      }));  
   } 
 
   return(
