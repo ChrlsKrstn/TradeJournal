@@ -7,7 +7,7 @@ const Navigation = () => {
     return (
         <>
             <h1 className="text-white" onClick={logoutUser}>
-                { isLogin ? firstname + " " + lastname: null }
+                <a href="#">{ isLogin ? firstname + " " + lastname: null }</a>
             </h1>
         </>
     )

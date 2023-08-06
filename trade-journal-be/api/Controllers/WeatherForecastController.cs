@@ -31,7 +31,7 @@ public class WeatherForecastController : ControllerBase
             { "username", "charles" },
             { "password", "charles" },
             { "firstname", "charles neo" },
-            { "firstname", "roa" },
+            { "middlename", "roa" },
             { "lastname", "retardo" },
         }; 
 

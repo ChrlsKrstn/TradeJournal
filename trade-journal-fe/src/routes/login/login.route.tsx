@@ -1,15 +1,16 @@
 import { FormEvent, ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
  
 import FormInput from "../../components/form-input/form-input.component"; 
-import { useUserStore } from "../../store/trade-journal.store";   
-//import { LoginQuery } from "../../store/trade-journal-queries"; FOR GETTING VALUES TO BE USED LATER
-import { loginMutation } from "../../store/trade-journal-mutation";
+import { useUserStore } from "../../store/trade-journal.store";    
+import { tradeJournalMutation } from "../../store/trade-journal-mutation";
+
 const forms = { 
+    url: '',
     username: '',
     password: ''
-}  
+}
 
 const Login = () => {
 
@@ -18,7 +19,7 @@ const Login = () => {
   const {username, password} = formFields; 
   const navigate = useNavigate();    
   const login = useMutation({
-    mutationFn: loginMutation,
+    mutationFn: tradeJournalMutation,
     onSuccess: data => {
         if(data.status == 401) { 
             alert("Wrong username or password!");
@@ -36,11 +37,14 @@ const Login = () => {
   };   
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault();     
-      login.mutate(JSON.stringify({
-        username: username, 
-        password: password
-      }));  
+      event.preventDefault(); 
+      login.mutate({
+        url: "https://localhost:7090/WeatherForecast",
+        formdata: JSON.stringify({
+          username: username, 
+          password: password
+        })
+      });
   } 
 
   return(
@@ -68,6 +72,10 @@ const Login = () => {
                 </button>
             </div>
         </form>
+        <div className="my-6  text-center"> 
+          <p><a href="/register">Register</a></p>
+          <p><a href="/register">Forgot password?</a></p>
+        </div>
     </div>
       
   );

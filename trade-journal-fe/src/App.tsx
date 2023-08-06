@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import Login from "./routes/login/login.route";
+import Register from "./routes/register/register.route";
 import Dashboard from "./routes/dashboard/dashboard.route";
 import Journal from "./routes/journal/journal.route";
 import JournalEntries from "./routes/journal-entries/journal-entries.route";
@@ -13,6 +14,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Routes>
         <Route path = "login" element = {<Login />}/>
+        <Route path = "register" element = {<Register />} />
         <Route path = "/" element = {<Dashboard />}>
           <Route path = "/journal" element = {<Journal />} />
           <Route path = "/entries" element = {<JournalEntries />} />

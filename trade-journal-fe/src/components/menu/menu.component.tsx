@@ -27,7 +27,7 @@ const Menu = () => {
     return (
         <>
             <div className="p-4 bg-gray-600 text-center">
-                <h1 className="text-white">HRIS</h1>
+                <h1 className="text-white"><a href="/">Trade Journal</a></h1>
             </div>
             <div className="p-4">
                 <ul className="divide-y">

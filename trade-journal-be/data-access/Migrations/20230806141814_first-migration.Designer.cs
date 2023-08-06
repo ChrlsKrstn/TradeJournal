@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace data_access.Migrations
 {
     [DbContext(typeof(TradeJournalContext))]
-    [Migration("20230803133537_MyFirstMigration")]
-    partial class MyFirstMigration
+    [Migration("20230806141814_first-migration")]
+    partial class firstmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

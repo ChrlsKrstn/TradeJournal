@@ -1,11 +1,17 @@
   
-  export const loginMutation = (formdata: string) => {
-    return fetch("https://localhost:7090/WeatherForecast", {
+  interface mutateParams {
+    url: string,
+    formdata: string
+  }
+  
+  export const tradeJournalMutation = (params: mutateParams) => {
+
+    return fetch(params.url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: formdata
+        body: params.formdata
     }) 
     .then(result => result.json());
 }
