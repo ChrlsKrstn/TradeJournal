@@ -24,8 +24,15 @@ const Register = () => {
         if(data.status == 401) { 
             alert("Wrong username or password!");
         }
-        else {
-            console.log(data); 
+        else {  
+            fetch("https://localhost:7090/User/authorizedRegister", { 
+                headers: {
+                    'Authorization': `${data.token}`,
+                    'Content-Type': 'application/json'
+                },
+            }).then(data => {
+                console.log(data);
+            });
             //userStore.setUser(data);
             //navigate("/");
         }
