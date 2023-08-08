@@ -1,14 +1,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;  
-using Models;
-using BusinessLogic;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using System.Collections;
+using data_access.models;
+using data_access.repository;
 
-namespace api.Controllers;
+namespace api.controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -16,20 +16,19 @@ public class UserController: ControllerBase
 { 
 
   [HttpPost("register")]
-  //[Authorize] 
   public IActionResult Register([FromBody] User user)
   {
 
-    //UserBusinessLogic.RegisterUser(user); 
-    Hashtable test = new()
-    {
-      {"token", GenerateJwtToken("Thisismyusername")}
-    };
-    return Ok(test);
+    UserRepository.RegisterUser(user); 
+    // Hashtable test = new()
+    // {
+    //   {"token", GenerateJwtToken("Thisismyusername")}
+    // };
+    return Ok();
   } 
 
-  [HttpGet("authorizedRegister")]
   [Authorize]
+  [HttpGet("authorizedRegister")]
   public IActionResult AuthorizedRegister()
   {
 

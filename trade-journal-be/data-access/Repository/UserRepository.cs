@@ -1,9 +1,8 @@
-using Models;
-using DataAccess;
+using data_access.models; 
 
-namespace BusinessLogic; 
+namespace data_access.repository; 
 
-public class UserBusinessLogic 
+public class UserRepository 
 {
   public static int RegisterUser(User user)
   { 

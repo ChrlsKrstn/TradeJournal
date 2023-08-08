@@ -1,4 +1,4 @@
-namespace Models;
+namespace data_access.models;
 
   public class User
   {

@@ -27,7 +27,7 @@ const Register = () => {
         else {  
             fetch("https://localhost:7090/User/authorizedRegister", { 
                 headers: {
-                    'Authorization': `${data.token}`,
+                    'Authorization': `Bearer ${data.token}`,
                     'Content-Type': 'application/json'
                 },
             }).then(data => {

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens; 
-using DataAccess;
+using data_access;
 using System.Text;
 
 var  policyName = "_myAllowSpecificOrigins";
@@ -28,8 +28,7 @@ builder.Services.AddDbContext<TradeJournalContext>();
 builder.Services.AddControllers();
 var jwtSecretKey = "Thisiswillbemyjwtsecretkeyfromnowon";
 builder.Services.AddAuthentication(options => {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; 
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options => {
     options.RequireHttpsMetadata = false;
@@ -37,8 +36,8 @@ builder.Services.AddAuthentication(options => {
     {
         ValidateIssuer = false, // Set to true if you want to validate the issuer
         ValidateAudience = false, // Set to true if you want to validate the audience
-        ValidateLifetime = true, // Validate the token expiration
-        ValidateIssuerSigningKey = false,
+        ValidateLifetime = false, // Validate the token expiration
+        ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey))
     
     };
@@ -57,7 +56,7 @@ app.UseHttpsRedirection();
 app.UseCors(policyName);
 
 app.UseAuthentication();
-app.UseRouting();
+// app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
 

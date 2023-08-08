@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Models;
+using data_access.models;
 
-namespace DataAccess;
+namespace data_access;
 public class TradeJournalContext: DbContext
 { 
 
