@@ -7,36 +7,37 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Collections;
 using data_access.models;
 using data_access.repository;
+using api.service;
 
 namespace api.controllers;
 
 [ApiController]
 [Route("[controller]")]
 public class UserController: ControllerBase
-{ 
+{  
 
   [HttpPost("register")]
   public IActionResult Register([FromBody] User user)
   {
-
-    UserRepository.RegisterUser(user); 
-    // Hashtable test = new()
-    // {
-    //   {"token", GenerateJwtToken("Thisismyusername")}
-    // };
-    return Ok();
+    UserService userService = new (this.ModelState); 
+    //Hashtable serviceResponse = userService.CreateUser(user);
+    userService.CreateUser(user);
+    // if (!Convert.ToBoolean(serviceResponse["Valid"]?.ToString())) 
+    //   return BadRequest(userService.CreateUser(user));
+    
+    return BadRequest(this.ModelState);
   } 
 
-  [Authorize]
+  //[Authorize]
   [HttpGet("authorizedRegister")]
   public IActionResult AuthorizedRegister()
-  {
-
+  { 
+    
     Hashtable test = new()
     {
       {"token", "Ok"}
     };
-    return Ok(test);
+    return Ok(this.ModelState);
   }
 
   private static string GenerateJwtToken(string username)
