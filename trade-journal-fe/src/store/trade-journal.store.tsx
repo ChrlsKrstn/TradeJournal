@@ -15,6 +15,16 @@ export const useUserStore = create<UserState & UserAction>()(persist(((set, get)
       lastname: user.lastname
     }))
   },
+  setRegisterFailed: (registerFailed: boolean) => {
+    set(() => ({
+      registerFailed: registerFailed
+    }))
+  },
+  setLoginFailed: (loginFailed: boolean) => {
+    set(() => ({
+      loginFailed: loginFailed
+    }))
+  },
   logoutUser: () => {
     set(() => ({
       isLogin: false, 

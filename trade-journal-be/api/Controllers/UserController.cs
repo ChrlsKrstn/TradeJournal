@@ -16,15 +16,18 @@ public class UserController: ControllerBase
 {  
 
   private readonly Hashtable response = new();
+
   [HttpPost("register")]
   public IActionResult Register([FromBody] User user)
   {
     UserService userService = new(ModelState);   
     response["success"] = true; 
+    response["message"] = "Registration success!";
 
     if (!userService.CreateUser(user))
     { 
       response["success"] = false; 
+      response["message"] = "Registration failed!";
       response.Add("error", ErrorStateHelper.ErrorState(ModelState));
       
       return BadRequest(response);
@@ -38,15 +41,20 @@ public class UserController: ControllerBase
   { 
     UserService userService = new(ModelState); 
     response["success"] = true; 
-    
+    response["message"] = "Login success!";
+
     if (!userService.LoginUser(loginUser))
     {
       response["success"] = false; 
-      response.Add("error", ErrorStateHelper.ErrorState(ModelState));
+      response["message"] = "Wrong username or password!";
+      response.Add("error", ErrorStateHelper.ErrorState(ModelState)); 
       
       return BadRequest(response);
     }
-    return Ok(userService.LoginUser(loginUser));
+
+    response["data"] = userService.GetUser(loginUser);
+
+    return Ok(response);
   }
 
   private static string GenerateJwtToken(string username)

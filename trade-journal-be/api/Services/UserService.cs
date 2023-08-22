@@ -47,4 +47,9 @@ public class UserService
 
       return _modelState.IsValid;
     }
+
+    public User GetUser(Login user)
+    {
+      return _userRepository.GetUser(user);
+    }
 }

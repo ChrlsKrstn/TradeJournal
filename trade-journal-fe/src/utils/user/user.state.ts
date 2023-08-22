@@ -1,4 +1,6 @@
 export interface UserState {
+  registerFailed: boolean,
+  loginFailed: boolean,
   isLogin: boolean, 
   id: number,
   username: string,
@@ -9,6 +11,8 @@ export interface UserState {
 }  
 
 export const USER_INITIAL_STATE = {
+  registerFailed: false,
+  loginFailed: false,
   isLogin: false,
   id: 0,
   username: "",
@@ -20,5 +24,7 @@ export const USER_INITIAL_STATE = {
 
 export interface UserAction {
   setUser: (user:UserState) => void;
+  setLoginFailed: (loginFailed: boolean) => void;
+  setRegisterFailed: (registerFailed: boolean) => void;
   logoutUser: () => void;
 } 

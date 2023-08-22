@@ -20,14 +20,12 @@ const Login = () => {
   const navigate = useNavigate();    
   const login = useMutation({
     mutationFn: tradeJournalMutation,
-    onSuccess: data => {
-        if(data.status == 401) { 
-            alert("Wrong username or password!");
-        }
-        else { 
-            userStore.setUser(data);
-            navigate("/");
-        }
+    onSuccess: response => {  
+        alert(response.message);
+        if(response.success) { 
+          userStore.setUser(response.data);
+          navigate("/");
+        } 
     }, 
   });
 
@@ -39,7 +37,7 @@ const Login = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault(); 
       login.mutate({
-        url: "https://localhost:7090/WeatherForecast",
+        url: "https://localhost:7090/User/login",
         formdata: JSON.stringify({
           username: username, 
           password: password
