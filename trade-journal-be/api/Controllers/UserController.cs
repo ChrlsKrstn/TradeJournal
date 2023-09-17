@@ -39,22 +39,22 @@ public class UserController: ControllerBase
   [HttpPost("login")]
   public IActionResult LoginUser([FromBody] Login loginUser)
   { 
-    UserService userService = new(ModelState); 
-    response["success"] = true; 
-    response["message"] = "Login success!";
+    // UserService userService = new(ModelState); 
+    // response["success"] = true; 
+    // response["message"] = "Login success!";
 
-    if (!userService.LoginUser(loginUser))
-    {
-      response["success"] = false; 
-      response["message"] = "Wrong username or password!";
-      response.Add("error", ErrorStateHelper.ErrorState(ModelState)); 
+    // if (!userService.LoginUser(loginUser))
+    // {
+    //   response["success"] = false; 
+    //   response["message"] = "Wrong username or password!";
+    //   response.Add("error", ErrorStateHelper.ErrorState(ModelState)); 
       
-      return BadRequest(response);
-    }
+    //   return BadRequest(response);
+    // }
 
-    response["data"] = userService.GetUser(loginUser);
+    // response["data"] = userService.GetUser(loginUser);
 
-    return Ok(response);
+    return Ok(GenerateJwtToken("test"));
   }
 
   private static string GenerateJwtToken(string username)
@@ -71,6 +71,7 @@ public class UserController: ControllerBase
         expires: DateTime.UtcNow.AddDays(2), // Token expiration time
         signingCredentials: credentials
     );
-    return new JwtSecurityTokenHandler().WriteToken(token);
+    
+    return new JwtSecurityTokenHandler().WriteToken(token); 
   }
 }
