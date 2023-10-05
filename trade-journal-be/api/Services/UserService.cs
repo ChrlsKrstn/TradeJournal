@@ -9,7 +9,6 @@ public class UserService
 {
     private readonly ModelStateDictionary _modelState;
     private readonly UserRepository _userRepository = new();
-
     public UserService(ModelStateDictionary modelState)
     {
         _modelState = modelState;
@@ -48,8 +47,9 @@ public class UserService
       return _modelState.IsValid;
     }
 
-    public User GetUser(Login user)
+    public string GetUser(Login user)
     {
-      return _userRepository.GetUser(user);
+      User userInfo = _userRepository.GetUser(user);
+      return userInfo.Firstname + " " +userInfo.Firstname;
     }
 }

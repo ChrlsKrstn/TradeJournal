@@ -39,22 +39,22 @@ public class UserController: ControllerBase
   [HttpPost("login")]
   public IActionResult LoginUser([FromBody] Login loginUser)
   { 
-    // UserService userService = new(ModelState); 
-    // response["success"] = true; 
-    // response["message"] = "Login success!";
+    UserService userService = new(ModelState); 
+    response["success"] = true; 
+    response["message"] = "Login success!";
 
-    // if (!userService.LoginUser(loginUser))
-    // {
-    //   response["success"] = false; 
-    //   response["message"] = "Wrong username or password!";
-    //   response.Add("error", ErrorStateHelper.ErrorState(ModelState)); 
+    if (!userService.LoginUser(loginUser))
+    {
+      response["success"] = false; 
+      response["message"] = "Wrong username or password!";
+      response.Add("error", ErrorStateHelper.ErrorState(ModelState)); 
       
-    //   return BadRequest(response);
-    // }
+      return BadRequest(response);
+    }
 
-    // response["data"] = userService.GetUser(loginUser);
-
-    return Ok(GenerateJwtToken("test"));
+    response["name"] = userService.GetUser(loginUser);
+    response["token"] = GenerateJwtToken("test");
+    return Ok(response);
   }
 
   private static string GenerateJwtToken(string username)
@@ -63,12 +63,11 @@ public class UserController: ControllerBase
     var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
     var claims = new[]
     {
-        new Claim(ClaimTypes.Name, username),
-        // Add additional claims as needed
+        new Claim(ClaimTypes.Name, username), 
     };
     var token = new JwtSecurityToken(
         claims: claims,
-        expires: DateTime.UtcNow.AddDays(2), // Token expiration time
+        expires: DateTime.UtcNow.AddDays(2),
         signingCredentials: credentials
     );
     

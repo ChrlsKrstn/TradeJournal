@@ -1,7 +1,13 @@
+'use client'
+import { useSession } from "next-auth/react";
 const Register = () => {
+
+  const { data: session } = useSession();
+  console.log(session)
   return (
-    <h1>Register</h1>
-  );
+    <div>asdsad</div>
+  )
 };
+
 
 export default Register;
