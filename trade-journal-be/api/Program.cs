@@ -38,8 +38,7 @@ builder.Services.AddAuthentication(options => {
         ValidateAudience = false, // Set to true if you want to validate the audience
         ValidateLifetime = false, // Validate the token expiration
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey))
-    
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey)) 
     };
 });
 
