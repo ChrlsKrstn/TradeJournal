@@ -49,11 +49,17 @@ public class UserController: ControllerBase
       
       return BadRequest(response);
     }
-    
-    TokenHelper token = new();
+
     response["name"] = userService.GetUser(loginUser);
-    response["token"] = token.getToken(loginUser.Username);
-    Console.Write(response["token"]);
+    return Ok(response);
+  }
+    
+  [HttpPost("setToken")]
+  public IActionResult SetUserCookie([FromBody] Hashtable sessionToken)
+  {
+    TokenHelper token = new();
+    
+    response["token"] = token.getToken(sessionToken);
     return Ok(response);
   }
 }

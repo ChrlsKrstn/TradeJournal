@@ -1,3 +1,4 @@
+using System.Collections;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -8,17 +9,20 @@ namespace api.token_helper;
 public class TokenHelper 
 {
 
-  public string getToken(string username) { 
-    return GenerateJwtToken(username);
+  public string getToken(Hashtable sessionToken) { 
+    return GenerateJwtToken(sessionToken);
   }
 
-  private static string GenerateJwtToken(string username)
+  private static string GenerateJwtToken(Hashtable sessionToken)
   {
     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Thisiswillbemyjwtsecretkeyfromnowon"));
     var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
     var claims = new[]
     {
-        new Claim(ClaimTypes.Name, username), 
+        new Claim(JwtRegisteredClaimNames.Name, sessionToken["name"].ToString()), 
+        new Claim(JwtRegisteredClaimNames.Iat, sessionToken["iat"].ToString()), 
+        new Claim(JwtRegisteredClaimNames.Exp, sessionToken["exp"].ToString()), 
+        new Claim(JwtRegisteredClaimNames.Jti, sessionToken["jti"].ToString()), 
     };
     var token = new JwtSecurityToken(
         claims: claims,
