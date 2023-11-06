@@ -14,7 +14,6 @@ public class UserController: ControllerBase
 {  
   private readonly Hashtable response = new();
 
-  [Authorize]
   [HttpPost("register")]
   public IActionResult Register([FromBody] User user)
   {
