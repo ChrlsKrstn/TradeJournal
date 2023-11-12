@@ -2,19 +2,17 @@ using data_access.models;
 
 namespace data_access.repository; 
 
-public class UserRepository 
+public class UserRepository: IUserRepository 
 {
-  private readonly TradeJournalContext _context;
-
-  public UserRepository()
+  public TradeJournalContext GetDbContext()
   {
-    _context = new TradeJournalContext();
+    return new TradeJournalContext();
   }
 
   public bool IsExistuser(string username)
   { 
     return 
-      _context.User
+      GetDbContext().User
       .Where(u => u.Username == username)
       .Any();
   } 
@@ -22,7 +20,7 @@ public class UserRepository
   public bool LoginUser(Login loginUser)
   {
     return 
-      _context.User
+      GetDbContext().User
       .Where(u => u.Username == loginUser.Username)
       .Where(u => u.Password == loginUser.Password)
       .Any();
@@ -31,7 +29,7 @@ public class UserRepository
   public User GetUser(Login loginUser)
   {
     return 
-      _context.User
+      GetDbContext().User
       .Where(u => u.Username == loginUser.Username)
       .Where(u => u.Password == loginUser.Password)
       .First();
@@ -49,9 +47,9 @@ public class UserRepository
       PhoneNumber = user.PhoneNumber,
     };
 
-    _context.User.Add(userInformation); 
+    GetDbContext().User.Add(userInformation); 
 
-    return _context.SaveChanges();
+    return GetDbContext().SaveChanges();
   }
 
 }

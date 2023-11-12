@@ -19,6 +19,7 @@ public class TokenHelper
     var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
     var claims = new[]
     {
+        new Claim(JwtRegisteredClaimNames.Sub, sessionToken["id"].ToString()), 
         new Claim(JwtRegisteredClaimNames.Name, sessionToken["name"].ToString()), 
         new Claim(JwtRegisteredClaimNames.Iat, sessionToken["iat"].ToString()), 
         new Claim(JwtRegisteredClaimNames.Exp, sessionToken["exp"].ToString()), 

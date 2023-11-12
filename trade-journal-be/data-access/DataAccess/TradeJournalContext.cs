@@ -10,4 +10,5 @@ public class TradeJournalContext: DbContext
     optionsBuilder.UseSqlite("DataSource=app.db;Cache=Shared");
   }
   public DbSet<User> User { get; set; }
+  public DbSet<Transaction> Transaction { get; set; }
 }

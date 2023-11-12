@@ -1,20 +1,19 @@
-using System.Collections;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using data_access.models;
-using data_access.repository;
 
 namespace api.service;
 
-public class UserService
+public class UserService: IUserService 
 {
     private readonly ModelStateDictionary _modelState;
-    private readonly UserRepository _userRepository = new();
-    public UserService(ModelStateDictionary modelState)
+    private readonly IUserRepository _userRepository;
+    public UserService(ModelStateDictionary modelState, IUserRepository userRepository)
     {
         _modelState = modelState;
+        _userRepository = userRepository;
     }  
 
-    protected void ValidateUser(User user)
+    public void ValidateUser(User user)
     { 
         if (user.Username.Length == 0) 
           _modelState.AddModelError("Username","Username is required.");
@@ -47,9 +46,8 @@ public class UserService
       return _modelState.IsValid;
     }
 
-    public string GetUser(Login user)
+    public User GetUser(Login user)
     {
-      User userInfo = _userRepository.GetUser(user);
-      return userInfo.Firstname + " " +userInfo.Firstname;
+      return _userRepository.GetUser(user);
     }
 }

@@ -4,7 +4,7 @@ using data_access.models;
 using api.service;
 using api.error_state;
 using api.token_helper;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace api.controllers;
 
@@ -13,11 +13,15 @@ namespace api.controllers;
 public class UserController: ControllerBase
 {  
   private readonly Hashtable response = new();
-
+  private readonly IUserService userService;
+  public UserController(IUserService service)
+  {
+    userService = service;
+  }
+  
   [HttpPost("register")]
   public IActionResult Register([FromBody] User user)
-  {
-    UserService userService = new(ModelState);   
+  { 
     response["success"] = true; 
     response["message"] = "Registration success!";
 
@@ -36,7 +40,6 @@ public class UserController: ControllerBase
   [HttpPost("login")]
   public IActionResult LoginUser([FromBody] Login loginUser)
   { 
-    UserService userService = new(ModelState); 
     response["success"] = true; 
     response["message"] = "Login success!";
 
@@ -49,7 +52,7 @@ public class UserController: ControllerBase
       return BadRequest(response);
     }
 
-    response["name"] = userService.GetUser(loginUser);
+    response["info"] = userService.GetUser(loginUser);
     return Ok(response);
   }
     
